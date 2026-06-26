@@ -65,6 +65,16 @@ RECOMMENDED_MODEL_NAMES = (
     "vertex_ai/gemini-3-pro-preview",
 )
 
+_RECOMMENDED_MODEL_NAME_SET = frozenset(name.lower() for name in RECOMMENDED_MODEL_NAMES)
+
+FRONTIER_MODEL_PROVIDERS = (
+    "openai",
+    "anthropic",
+    "vertex_ai",
+    "gemini",
+    "google",
+)
+
 FRONTIER_MODEL_PREFIXES = (
     "gpt-5",
     "claude-opus-4",
@@ -169,28 +179,34 @@ def model_supports_reasoning(model_name: str) -> bool:
 
 def is_recommended_or_frontier_model(model_name: str) -> bool:
     """Return whether a model is recommended or in a frontier model family."""
-    return any(
-        _is_recommended_or_frontier_candidate(candidate)
-        for candidate in _normalized_model_candidates(model_name)
-    )
-
-
-def _normalized_model_candidates(model_name: str) -> tuple[str, ...]:
-    name = model_name.strip().lower()
+    name = _normalized_model_name(model_name)
     if not name:
-        return ()
+        return False
+    if name in _RECOMMENDED_MODEL_NAME_SET:
+        return True
+    provider_name, bare_model_name = _split_model_provider(name)
+    if provider_name is None:
+        return _is_frontier_model_name(bare_model_name)
+    return provider_name in FRONTIER_MODEL_PROVIDERS and _is_frontier_model_name(bare_model_name)
+
+
+def _normalized_model_name(model_name: str) -> str:
+    name = model_name.strip().lower()
     for prefix in ("litellm/", "any-llm/"):
         if name.startswith(prefix):
             name = name[len(prefix) :]
             break
-    if "/" not in name:
-        return (name,)
-    return (name, name.rsplit("/", 1)[1])
+    return name
 
 
-def _is_recommended_or_frontier_candidate(model_name: str) -> bool:
-    if model_name in RECOMMENDED_MODEL_NAMES:
-        return True
+def _split_model_provider(model_name: str) -> tuple[str | None, str]:
+    if "/" not in model_name:
+        return None, model_name
+    provider_name, bare_model_name = model_name.rsplit("/", 1)
+    return provider_name, bare_model_name
+
+
+def _is_frontier_model_name(model_name: str) -> bool:
     return any(model_name.startswith(prefix) for prefix in FRONTIER_MODEL_PREFIXES)
 
 

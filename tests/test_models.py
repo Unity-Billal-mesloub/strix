@@ -12,6 +12,10 @@ def test_recommended_models_are_accepted(model_name: str) -> None:
     assert is_recommended_or_frontier_model(model_name)
 
 
+def test_recommended_models_are_matched_case_insensitively() -> None:
+    assert is_recommended_or_frontier_model("Vertex_AI/Gemini-3-Pro-Preview")
+
+
 @pytest.mark.parametrize(
     "model_name",
     [
@@ -34,6 +38,7 @@ def test_frontier_model_families_are_accepted(model_name: str) -> None:
         "anthropic/claude-3-5-sonnet-latest",
         "ollama/llama3.1",
         "deepseek/deepseek-chat",
+        "custom-ollama/gpt-5-mini-local",
     ],
 )
 def test_non_frontier_models_are_rejected(model_name: str) -> None:
