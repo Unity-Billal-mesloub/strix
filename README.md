@@ -256,7 +256,7 @@ Full documentation is available at **[docs.strix.ai](https://docs.strix.ai)** - 
 
 ## Contributing
 
-We welcome contributions of code, docs, and new skills - check out our [Contributing Guide](https://docs.strix.ai/contributing) to get started or open a [pull request](https://github.com/usestrix/strix/pulls)/[issue](https://github.com/usestrix/strix/issues).
+We welcome contributions of code, docs, and new skills - check out our [Contributing Guide](https://docs.strix.ai/contributing) to get started or open a [pull request](https://github.com/Unity-Billal-mesloub/strix/pulls)/[issue](https://github.com/Unity-Billal-mesloub/strix/issues).
 
 ## Join Our Community
 
@@ -268,7 +268,7 @@ Have questions? Found a bug? Want to contribute? **[Join our Discord!](https://d
 
 ## Acknowledgements
 
-Strix builds on the incredible work of open-source projects like [LiteLLM](https://github.com/BerriAI/litellm), [Caido](https://github.com/caido/caido), [Nuclei](https://github.com/projectdiscovery/nuclei), [Playwright](https://github.com/microsoft/playwright), and [Textual](https://github.com/Textualize/textual). Huge thanks to their maintainers!
+Strix builds on the incredible work of open-source projects like [LiteLLM](https://github.com/Unity-Billal-mesloub/litellm),  [Nuclei](https://github.com/Unity-Billal-mesloub/nuclei), [Playwright](https://github.com/Unity-Film-and-animation-industry/playwright), and [Textual](https://github.com/Unity-Billal-mesloub/textual). Huge thanks to their maintainers!
 
 
 > [!WARNING]
